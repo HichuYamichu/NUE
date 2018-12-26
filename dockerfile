@@ -7,7 +7,7 @@ WORKDIR /usr/src/nue
 COPY package.json yarn.lock ./
 
 RUN apk add --update \
-&& apk add --no-cache ca-certificates ffmpeg opus\
+&& apk add --no-cache ca-certificates ffmpeg \
 && apk add --no-cache --virtual .build-deps git curl build-base python g++ make \
 && yarn install \
 && apk del .build-deps
