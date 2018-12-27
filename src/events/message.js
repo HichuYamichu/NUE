@@ -1,5 +1,5 @@
 module.exports = (client, message) => {
-	const PREFIX = process.env.PREFIX
+	const PREFIX = process.env.PREFIX;
 
 	const Discord = require("discord.js");
 	if (message.author.bot) return;
@@ -9,9 +9,11 @@ module.exports = (client, message) => {
 	const command = args.shift().toLowerCase();
 	const cmd = client.commands.get(command);
 	if (!cmd) return;
-	if (cmd.guildOnly && message.channel.type !== 'text') {
-		return message.reply('you can\'t use that command inside DMs!');
+	if (message.channel.type !== 'text') {
+		return message.reply('You can\'t talk with me inside DMs!');
 	}
+
+	if(cmd.serverQueue && !client.queue.get(message.guild.id)) return message.channel.send('There is nothing in the queue.');
 
 	//if(cmd.ownerOnly && message.author.id !== client.config.ownerID) return message.channel.send('This is owner only command, you can\'t use it.');
 
@@ -44,7 +46,7 @@ module.exports = (client, message) => {
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
 	try{
-		cmd.run(client, message, args);
+		cmd.run(client, message, client.queue.get(message.guild.id), args);
 	}
 	catch(err){
 		console.error(err);

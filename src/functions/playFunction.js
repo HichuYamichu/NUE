@@ -15,6 +15,7 @@ module.exports = {
 				this.play(client, guild, serverQueue.songs[0])
 			})
 			.on('error', error => console.log(error));
-			dispatcher.setVolumeLogarithmic(5/5);
+			dispatcher.setVolumeLogarithmic(serverQueue.volume/5);
+			serverQueue.textChannel.send(`**Playing:** ${song.title}`)
 	}
 }
