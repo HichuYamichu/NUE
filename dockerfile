@@ -15,7 +15,8 @@ RUN apk add --update \
 COPY . .
 
 ENV TOKEN= \
-		PREFIX=
+		PREFIX= \
+		YTKEY=
 
 CMD ["node", "src/nue.js"]
 

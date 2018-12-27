@@ -1,5 +1,5 @@
 module.exports = (client, message) => {
-	const PREFIX = process.env.PREFIX;
+	const { PREFIX } = require('../config');;
 
 	const Discord = require("discord.js");
 	if (message.author.bot) return;

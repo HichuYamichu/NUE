@@ -3,11 +3,14 @@ const client = new Client({ disableEveryone: true});
 const { promisify } = require('util');
 const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
-const TOKEN  = process.env.TOKEN;
+const YouTube = require('simple-youtube-api');
+const { TOKEN, YTKEY }  = require('./config');
 const cooldowns = new Collection();
 client.cooldowns = cooldowns;
 const queue = new Map();
 client.queue = queue;
+const youtube = new YouTube(YTKEY);
+client.youtube = youtube;
 
 const init = async () => {
 	const evtFiles = await readdir("./src/events/");
