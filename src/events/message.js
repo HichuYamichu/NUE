@@ -1,5 +1,5 @@
 module.exports = (client, message) => {
-	const { PREFIX } = process.env;
+	const PREFIX = process.env.PREFIX
 
 	const Discord = require("discord.js");
 	if (message.author.bot) return;
@@ -48,6 +48,7 @@ module.exports = (client, message) => {
 	}
 	catch(err){
 		console.error(err);
+		client.queue.delete(message.guild.id)
 		message.channel.send(`Something went wrong! Fix now <@>`);
 	}
 };

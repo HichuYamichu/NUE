@@ -3,9 +3,11 @@ const client = new Client({ disableEveryone: true});
 const { promisify } = require('util');
 const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
-const { TOKEN, PREFIX } = process.env;
+const TOKEN  = process.env.TOKEN
 const cooldowns = new Collection();
 client.cooldowns = cooldowns;
+const queue = new Map();
+client.queue = queue;
 
 const init = async () => {
 	const evtFiles = await readdir("./src/events/");

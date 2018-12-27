@@ -6,11 +6,24 @@ module.exports = {
 	usage: '<args>',
 	guildOnly: true,
 	ownerOnly: false,
-	run(client, message, args) {
-
+	async run(client, message, args) {
+		const playFunction = require('../functions/playFunction')
 		const ytdl = require('ytdl-core');
-
+		const serverQueue = client.queue.get(message.guild.id)
 		const { voiceChannel } = message.member;
+		const link = args.toString();
+
+		if(!ytdl.validateURL(link)){
+			return message.reply('invalid link!');
+		}
+
+		const info = await ytdl.getInfo(link);
+		if(info.length_seconds > 660) return message.reply('too long must me less than 11 minutes!');
+		const song = {
+			title: info.title,
+			URL: info.video_url
+		}
+
 		if(!voiceChannel) {
 			return message.reply('please join a voice channel first!');
 		}
@@ -23,24 +36,26 @@ module.exports = {
 			return message.channel.send('I don\'t have permissions to speak in this channel')
 		}
 
-		voiceChannel.join().then(connection => {
-			let link = args.toString();
-
-			if(!ytdl.validateURL(link)){
-				voiceChannel.leave();
-				return message.reply('invalid link');
+		if(!serverQueue){
+			const queueConstruct = {
+				textChannel: message.channel,
+				voiceChannel: voiceChannel,
+				connection: null,
+				songs: [],
+				volume: 5,
+				playing: true
 			}
-			ytdl.getInfo(link).then(info => {
-				if(info.length_seconds > 660){
-					voiceChannel.leave();
-					return message.reply('too long must me less than 11 minutes');
-				}
-					const stream = ytdl(link, { filter: 'audioonly'});
-					const dispatcher = connection.playStream(stream);
-					dispatcher.setVolumeLogarithmic(1/4);
-					dispatcher.on('end', () => voiceChannel.leave());
-				
-			}).catch(err => console.error(err));
-		});
+
+			client.queue.set(message.guild.id, queueConstruct);
+			queueConstruct.songs.push(song);
+
+			let connection = await voiceChannel.join()
+			queueConstruct.connection = connection;
+			playFunction.play(client, message.guild, queueConstruct.songs[0])
+
+		}else{
+			serverQueue.songs.push(song)
+			return message.channel.send(`${info.title} has been added to queue`)
+		}
 	},
 };
