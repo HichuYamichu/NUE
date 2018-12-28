@@ -5,7 +5,6 @@ module.exports = {
 	args: false,
 	usage: '',
 	ownerOnly: false,
-	serverQueue: true,
 	run(client, message, serverQueue) {
 
 		return message.channel.send(`**Now playing:** ${serverQueue.songs[0].title}`)

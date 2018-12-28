@@ -4,7 +4,6 @@ module.exports = {
 	cooldown: 5,
 	args: false,
 	usage: '',
-	guildOnly: true,
 	ownerOnly: false,
 	async run(client, message) {
 		const msg = await message.channel.send("Ping?");

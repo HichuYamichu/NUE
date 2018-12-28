@@ -9,7 +9,6 @@ module.exports = {
 
 		const queueFunction = require('../functions/queueFunction')
 		const validationFunction = require('../functions/validationFunction')
-		//const Discord = require("discord.js");
 		const { voiceChannel } = message.member;
 
 

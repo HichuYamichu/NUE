@@ -1,7 +1,7 @@
 module.exports = (client, message) => {
-	const { PREFIX } = require('../config');;
+	const { PREFIX, OWNER } = require('../config');;
 
-	const Discord = require("discord.js");
+	const { Collection } = require("discord.js");
 	if (message.author.bot) return;
 	if (message.content.indexOf(PREFIX) !== 0) return;
 
@@ -15,7 +15,7 @@ module.exports = (client, message) => {
 
 	if(cmd.serverQueue && !client.queue.get(message.guild.id)) return message.channel.send('There is nothing in the queue.');
 
-	//if(cmd.ownerOnly && message.author.id !== client.config.ownerID) return message.channel.send('This is owner only command, you can\'t use it.');
+	if(cmd.ownerOnly && message.author.id !== OWNER) return message.channel.send('This is owner only command, you can\'t use it.');
 
 	if (cmd.args && !args.length) {
 		let reply = `${message.author}, you must provide some arguments to use this command!`;
@@ -26,7 +26,7 @@ module.exports = (client, message) => {
 	}
 
 	if (!client.cooldowns.has(cmd.name)) {
-		client.cooldowns.set(cmd.name, new Discord.Collection());
+		client.cooldowns.set(cmd.name, new Collection());
 	}
 
 	const now = Date.now();
@@ -51,6 +51,6 @@ module.exports = (client, message) => {
 	catch(err){
 		console.error(err);
 		client.queue.delete(message.guild.id)
-		message.channel.send(`Something went wrong! Fix now <@>`);
+		message.channel.send(`Something went wrong! Fix now <@${OWNER}>`);
 	}
 };
