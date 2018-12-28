@@ -9,7 +9,7 @@ module.exports = {
 		const queueFunction = require('../functions/queueFunction')
 		const validationFunction = require('../functions/validationFunction')
 		const { voiceChannel } = message.member;
-		const link = args.toString();
+		const link = args[0];
 		
 		const responce = await validationFunction.check(voiceChannel, message, link)
 		if(responce === 'pass'){

@@ -1,5 +1,5 @@
 module.exports = {
-	async  check(voiceChannel, message, link) {
+	async check(voiceChannel, message, link) {
 
 		const ytdl = require('ytdl-core');
 		if(!ytdl.validateURL(link)){
