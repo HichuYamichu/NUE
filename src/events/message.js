@@ -1,5 +1,7 @@
 module.exports = (client, message) => {
-	const { PREFIX, OWNER } = require('../config');;
+	
+	require('dotenv').config();
+	const { PREFIX, OWNER } = process.env;
 
 	const { Collection } = require("discord.js");
 	if (message.author.bot) return;

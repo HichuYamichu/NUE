@@ -12,7 +12,7 @@ module.exports = {
 		const { voiceChannel } = message.member;
 
 
-		const query = await client.youtube.searchVideos(args[0], 10);
+		const query = await client.youtube.searchVideos(args.toString().replace(',', ' '), 10);
 		let index = 0
 		await message.channel.send(query.map(vid => `**${++index}:** ${vid.title}`));
 		await message.channel.send('**Provide a value to choose one of the search results.**');

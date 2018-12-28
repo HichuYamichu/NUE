@@ -4,7 +4,8 @@ const { promisify } = require('util');
 const readdir = promisify(require("fs").readdir);
 const Enmap = require("enmap");
 const YouTube = require('simple-youtube-api');
-const { TOKEN, YTKEY }  = require('./config');
+require('dotenv').config();
+const { TOKEN, YTKEY }  = process.env;
 const cooldowns = new Collection();
 client.cooldowns = cooldowns;
 const queue = new Map();
@@ -13,7 +14,7 @@ const youtube = new YouTube(YTKEY);
 client.youtube = youtube;
 
 const init = async () => {
-	const evtFiles = await readdir("./src/events/");
+	const evtFiles = await readdir("./events/");
 	evtFiles.forEach(file => {
 		const eventName = file.split(".")[0];
 		const event = require(`./events/${file}`);
@@ -22,7 +23,7 @@ const init = async () => {
 
 	client.commands = new Enmap();
 
-	const cmdFiles = await readdir("./src/commands/"); 
+	const cmdFiles = await readdir("./commands/"); 
 	cmdFiles.forEach(file => {
 		if (!file.endsWith(".js")) return;
 		let props = require(`./commands/${file}`);

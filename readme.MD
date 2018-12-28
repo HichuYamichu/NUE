@@ -1,1 +1,1 @@
-Discord music bot in docker container
+Discord music bot
