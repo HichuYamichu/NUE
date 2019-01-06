@@ -1,9 +1,8 @@
 module.exports = (client, message) => {
-	
 	require('dotenv').config();
 	const { PREFIX, OWNER } = process.env;
 
-	const { Collection } = require("discord.js");
+	const { Collection } = require('discord.js');
 	if (message.author.bot) return;
 	if (message.content.indexOf(PREFIX) !== 0) return;
 
@@ -15,9 +14,9 @@ module.exports = (client, message) => {
 		return message.reply('You can\'t talk with me inside DMs!');
 	}
 
-	if(cmd.serverQueue && !client.queue.get(message.guild.id)) return message.channel.send('There is nothing in the queue.');
+	if (cmd.serverQueue && !client.queue.get(message.guild.id)) return message.channel.send('There is nothing in the queue.');
 
-	if(cmd.ownerOnly && message.author.id !== OWNER) return message.channel.send('This is owner only command, you can\'t use it.');
+	if (cmd.ownerOnly && message.author.id !== OWNER) return message.channel.send('This is owner only command, you can\'t use it.');
 
 	if (cmd.args && !args.length) {
 		let reply = `${message.author}, you must provide some arguments to use this command!`;
@@ -47,12 +46,11 @@ module.exports = (client, message) => {
 	timestamps.set(message.author.id, now);
 	setTimeout(() => timestamps.delete(message.author.id), cooldownAmount);
 
-	try{
+	try {
 		cmd.run(client, message, client.queue.get(message.guild.id), args);
-	}
-	catch(err){
+	} catch (err) {
 		console.error(err);
-		client.queue.delete(message.guild.id)
+		client.queue.delete(message.guild.id);
 		message.channel.send(`Something went wrong! Fix now <@${OWNER}>`);
 	}
 };

@@ -6,7 +6,6 @@ module.exports = {
 	usage: '',
 	ownerOnly: false,
 	run(client, message, serverQueue) {
-
-		return message.channel.send(`**Now playing:** ${serverQueue.songs[0].title}`)
-	},
+		return message.channel.send(`**Now playing:** ${serverQueue.songs[0].title}`);
+	}
 };

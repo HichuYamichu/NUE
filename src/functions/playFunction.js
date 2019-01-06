@@ -7,8 +7,8 @@ module.exports = {
 			client.queue.delete(guild.id)
 			return;
 		}
-		const stream = ytdl(song.URL, { filter: 'audioonly'});
-		const dispatcher = serverQueue.connection.playStream(stream)
+		const stream = ytdl(song.URL, { filter: 'audioonly' });
+		const dispatcher = serverQueue.connection.playStream(stream, { bitrate: 'auto' })
 			.on('end', () => {
 				console.log('song ended')
 				serverQueue.songs.shift();

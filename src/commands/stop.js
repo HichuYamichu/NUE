@@ -7,7 +7,6 @@ module.exports = {
 	ownerOnly: false,
 	serverQueue: true,
 	run(client, message, serverQueue) {
-
 		const { voiceChannel } = message.member;
 		if (!voiceChannel) {
 			return message.reply('You can\'t stop playing music if you\'re not in a voice channel');
@@ -15,5 +14,5 @@ module.exports = {
 
 		serverQueue.songs = [];
 		serverQueue.connection.dispatcher.end();
-	},
+	}
 };
