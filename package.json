@@ -1,6 +1,6 @@
 {
   "name": "nue",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "music",
   "main": "self.js",
   "author": "Hichu-Yamichu",
@@ -15,7 +15,8 @@
     "ffmpeg-binaries": "^4.0.0",
     "node-opus": "^0.2.7",
     "simple-youtube-api": "^5.1.1",
-    "ytdl-core": "^0.28.3"
+    "ytdl-core": "^0.28.3",
+    "ytdl-core-discord": "^1.0.3"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
