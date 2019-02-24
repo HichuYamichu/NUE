@@ -1,12 +1,13 @@
 {
   "name": "nue",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "music",
-  "main": "self.js",
+  "main": "src/nue.js",
   "author": "Hichu-Yamichu",
   "license": "MIT",
   "scripts": {
-    "build": "node-opus"
+    "build": "node-opus",
+		"start": "nodemon nue.js"
   },
   "dependencies": {
     "discord.js": "^11.4.2",

@@ -13,7 +13,7 @@ const youtube = new YouTube(YTKEY);
 client.youtube = youtube;
 
 const init = async () => {
-	const evtFiles = await readdir('./events/');
+	const evtFiles = await readdir('./src/events/');
 	evtFiles.forEach(file => {
 		const eventName = file.split('.')[0];
 		const event = require(`./events/${file}`);
@@ -23,7 +23,7 @@ const init = async () => {
 	const Enmap = require('enmap');
 	client.commands = new Enmap();
 
-	const cmdFiles = await readdir('./commands/');
+	const cmdFiles = await readdir('./src/commands/');
 	cmdFiles.forEach(file => {
 		if (!file.endsWith('.js')) return;
 		const props = require(`./commands/${file}`);
